@@ -42,7 +42,7 @@ const Layout = () => {
           {/* Logo */}
           {/* În loc de div-ul cu PM, pune asta: */}
           <Link to="/" className="flex items-center gap-2">
-           <img src="/Logo.png" alt="Porte Milliem Logo" className="h-10 w-auto" />
+           <img src="/Logo2.png" alt="Porte Milliem Logo" className="h-10 w-auto" />
            <span className={cn(
   "text-2xl tracking-widest transition-colors", // Am mărit textul și spațierea
   isScrolled || !isHomePage ? "text-[#A32035]" : "text-white"
