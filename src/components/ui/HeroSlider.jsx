@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const slides = [
   {
@@ -8,7 +9,7 @@ const slides = [
     topHeading: 'PORTE MILLIEM DIN 1980',
     heading: 'Deschide către perfecțiune\nAMENAJEAZĂ-ȚI CASA',
     content: 'Producători de uși și sisteme de închidere',
-    link: '/despre-noi'
+    link: '/desprenoi' // Corectat din /despre-noi
   },
   {
     image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1920&q=80',
@@ -94,35 +95,43 @@ export default function HeroSlider() {
                 {slides[currentSlide].content}
               </motion.p>
               
-              <motion.a
+              {/* BUTOANELE DIN SLIDER */}
+              <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9 }}
-                href={slides[currentSlide].link}
-                className="inline-block px-8 py-3 border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 tracking-wider text-sm uppercase"
+                className="flex flex-col sm:flex-row gap-4 justify-center"
               >
-                Descoperă mai mult
-              </motion.a>
+                {/* Butonul dinamic (Descoperă mai mult / Colecții) */}
+                <Link
+                  to={slides[currentSlide].link}
+                  className="px-8 py-3 border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 tracking-wider text-sm uppercase"
+                >
+                  Descoperă mai mult
+                </Link>
+
+                {/* Butonul de Contact (care merge mereu la pagina de contact) */}
+                <Link
+                  to="/contact"
+                  className="px-8 py-3 bg-[#A32035] border-2 border-[#A32035] text-white hover:bg-[#8a1b2d] hover:border-[#8a1b2d] transition-all duration-300 tracking-wider text-sm uppercase"
+                >
+                  Contactează-ne
+                </Link>
+              </motion.div>
             </div>
           </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-10"
-      >
+      {/* Săgeți Navigare */}
+      <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-10">
         <ChevronLeft className="w-10 h-10" />
       </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-10"
-      >
+      <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-10">
         <ChevronRight className="w-10 h-10" />
       </button>
 
-      {/* Slide Indicators */}
+      {/* Indicatoare Slide */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
         {slides.map((_, index) => (
           <button

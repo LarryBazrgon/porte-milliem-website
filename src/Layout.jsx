@@ -78,33 +78,19 @@ const Layout = () => {
                 )} />
               </Link>
             ))}
-            <Button 
-              className={cn(
-                "ml-4 rounded-full px-6 transition-all shadow-lg hover:shadow-xl",
-                isScrolled || !isHomePage 
-                  ? "bg-[#A32035] hover:bg-[#8a1b2d] text-white" 
-                  : "bg-white text-[#A32035] hover:bg-gray-100"
-              )}
-            >
-              Cere Ofertă
-            </Button>
-
-          <div className="flex flex-col sm:flex-row gap-4 mt-8">
-  {/* Butonul Descopera mai mult -> duce la /desprenoi */}
-  <Link to="/desprenoi">
-    <Button size="lg" className="w-full sm:w-auto bg-[#A32035] hover:bg-[#8a1b2d] text-white text-lg px-8 py-6">
-      Descoperă mai mult
-    </Button>
-  </Link>
-
-  {/* Butonul Contacteaza-ne -> duce la /contact */}
-  <Link to="/contact">
-    <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-black text-lg px-8 py-6">
-      Contactează-ne
-    </Button>
-  </Link>
-</div>
-
+           <Link to="/contact">
+  <Button 
+    className={cn(
+      "ml-4 rounded-full px-6 transition-all shadow-lg hover:shadow-xl",
+      isScrolled || !isHomePage 
+        ? "bg-[#A32035] hover:bg-[#8a1b2d] text-white" 
+        : "bg-white text-[#A32035] hover:bg-gray-100"
+    )}
+  >
+    Cere Ofertă
+  </Button>
+</Link>
+            
           </nav>
 
           {/* Mobile Menu */}
