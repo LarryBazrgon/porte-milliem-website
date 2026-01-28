@@ -43,12 +43,14 @@ const Layout = () => {
           {/* În loc de div-ul cu PM, pune asta: */}
           <Link to="/" className="flex items-center gap-2">
            <img src="/Logo.png" alt="Porte Milliem Logo" className="h-10 w-auto" />
-            <span className={cn(
-             "text-xl font-bold tracking-tight",
-           isScrolled || !isHomePage ? "text-gray-900" : "text-white"
-           )}>
-    PORTE MILLIEM
-  </span>
+           <span className={cn(
+  "text-2xl tracking-widest transition-colors", // Am mărit textul și spațierea
+  isScrolled || !isHomePage ? "text-[#A32035]" : "text-white"
+)}
+style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}
+>
+  PORTE MILLIEM
+</span>
      </Link>
 
           {/* Desktop Nav */}
