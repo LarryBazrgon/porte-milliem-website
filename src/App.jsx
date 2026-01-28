@@ -6,13 +6,14 @@ import Contact from './pages/Contact';
 import Cataloage from './pages/Cataloage';
 import Colectii from './pages/Colectii';
 import DespreNoi from './pages/DespreNoi';
-import { Toaster } from './components/ui/sonner';
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Layout este părintele care conține Header și Footer */}
         <Route path="/" element={<Layout />}>
+          {/* Outlet din Layout va afișa aceste pagini aici: */}
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
           <Route path="contact" element={<Contact />} />
@@ -21,7 +22,6 @@ function App() {
           <Route path="desprenoi" element={<DespreNoi />} />
         </Route>
       </Routes>
-      <Toaster />
     </Router>
   );
 }
