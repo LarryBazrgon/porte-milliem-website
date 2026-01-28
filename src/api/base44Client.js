@@ -5,17 +5,19 @@ export const base44 = {
         try {
           const response = await fetch('/api/chat', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message })
           });
           
           const data = await response.json();
-          return data.reply;
+
+          if (data.error) {
+            return `Ups! Chatbot-ul spune: ${data.error}`;
+          }
+          
+          return data.reply || "Nu am primit un răspuns de la AI.";
         } catch (error) {
-          console.error("Eroare Chatbot:", error);
-          return "Momentan am o mică problemă tehnică. Te rog să ne contactezi telefonic pentru asistență!";
+          return "Serverul chatbot-ului nu răspunde. Verifică dacă folderul 'api' este la locul lui!";
         }
       }
     }

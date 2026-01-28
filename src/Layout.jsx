@@ -43,13 +43,18 @@ const Layout = () => {
           {/* În loc de div-ul cu PM, pune asta: */}
           <Link to="/" className="flex items-center gap-2">
            <img src="/Logo2.png" alt="Porte Milliem Logo" className="h-10 w-auto" />
-           <span className={cn(
-  "text-2xl tracking-widest transition-colors", // Am mărit textul și spațierea
-  isScrolled || !isHomePage ? "text-[#A32035]" : "text-white"
-)}
-style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}
+          <span 
+  className={cn(
+    "text-2xl tracking-[0.15em] uppercase transition-colors ml-3", 
+    isScrolled || !isHomePage ? "text-[#A32035]" : "text-white"
+  )}
+  style={{ 
+    fontFamily: "'Playfair Display', serif", 
+    fontWeight: '700',
+    fontStyle: 'italic' // Arată mult mai premium înclinat
+  }}
 >
-  PORTE MILLIEM
+  Porte Milliem
 </span>
      </Link>
 
@@ -83,6 +88,23 @@ style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}
             >
               Cere Ofertă
             </Button>
+
+          <div className="flex flex-col sm:flex-row gap-4 mt-8">
+  {/* Butonul Descopera mai mult -> duce la /desprenoi */}
+  <Link to="/desprenoi">
+    <Button size="lg" className="w-full sm:w-auto bg-[#A32035] hover:bg-[#8a1b2d] text-white text-lg px-8 py-6">
+      Descoperă mai mult
+    </Button>
+  </Link>
+
+  {/* Butonul Contacteaza-ne -> duce la /contact */}
+  <Link to="/contact">
+    <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-black text-lg px-8 py-6">
+      Contactează-ne
+    </Button>
+  </Link>
+</div>
+
           </nav>
 
           {/* Mobile Menu */}
