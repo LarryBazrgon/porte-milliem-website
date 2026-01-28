@@ -12,12 +12,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout currentPageName="Home"><Home /></Layout>} />
-        <Route path="/home" element={<Layout currentPageName="Home"><Home /></Layout>} />
-        <Route path="/contact" element={<Layout currentPageName="Contact"><Contact /></Layout>} />
-        <Route path="/cataloage" element={<Layout currentPageName="Cataloage"><Cataloage /></Layout>} />
-        <Route path="/colectii" element={<Layout currentPageName="Colectii"><Colectii /></Layout>} />
-        <Route path="/desprenoi" element={<Layout currentPageName="DespreNoi"><DespreNoi /></Layout>} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="home" element={<Home />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="cataloage" element={<Cataloage />} />
+          <Route path="colectii" element={<Colectii />} />
+          <Route path="desprenoi" element={<DespreNoi />} />
+        </Route>
       </Routes>
       <Toaster />
     </Router>

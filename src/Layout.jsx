@@ -1,199 +1,210 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
-import { Menu, X, Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Logo from '@/components/ui/Logo';
-import Chatbot from '@/components/Chatbot';
+import React, { useState } from 'react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Menu, X, Phone, Mail, MapPin, Facebook, Instagram, Linkedin, ChevronRight, Star } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+// Asigură-te că ai componenta Logo sau șterge linia dacă nu o folosești
+import Logo from '@/components/ui/Logo'; 
 
-const navItems = [
-  { name: 'Acasă', page: 'Home' },
-  { name: 'Companie', page: 'DespreNoi' },
-  { name: 'Cataloage', page: 'Cataloage' },
-  { name: 'Colecții', page: 'Colectii' },
-  { name: 'Contact', page: 'Contact' }
-];
-
-export default function Layout({ children, currentPageName }) {
+const Layout = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
-  useEffect(() => {
+  // Efect pentru scroll
+  React.useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [location]);
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Cataloage', path: '/cataloage' },
+    { name: 'Colecții', path: '/colectii' },
+    { name: 'Despre Noi', path: '/desprenoi' },
+    { name: 'Contact', path: '/contact' },
+  ];
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Top Bar */}
-      <div className="bg-gray-100 text-gray-600 text-sm py-2 hidden md:block">
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <span>Producător uși interioare – Deschide către perfecțiune</span>
-          <Link to={createPageUrl('Contact')} className="flex items-center gap-2 hover:text-[#A32035] transition-colors">
-            <Mail className="w-4 h-4" />
-            Zonă Rezervată
-          </Link>
-        </div>
-      </div>
-
-      {/* Main Header */}
-      <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-lg' : 'bg-white/95'
-      }`}>
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div className="min-h-screen flex flex-col font-sans text-gray-900">
+      {/* --- HEADER --- */}
+      <header 
+        className={cn(
+          "fixed top-0 w-full z-50 transition-all duration-300",
+          isScrolled || !isHomePage ? "bg-white/95 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"
+        )}
+      >
+        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link to={createPageUrl('Home')}>
-            <Logo />
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="relative w-10 h-10 overflow-hidden rounded-lg bg-[#A32035] flex items-center justify-center text-white">
+               {/* Dacă ai componenta Logo, o poți folosi aici, altfel punem un text simplu */}
+               <span className="font-bold text-lg">PM</span>
+            </div>
+            <span className={cn(
+              "text-xl font-bold tracking-tight transition-colors",
+              isScrolled || !isHomePage ? "text-gray-900" : "text-white"
+            )}>
+              PORTE MILLIEM
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
               <Link
-                key={item.page}
-                to={createPageUrl(item.page)}
-                className={`text-sm tracking-wide transition-colors relative group ${
-                  currentPageName === item.page 
-                    ? 'text-[#A32035]' 
-                    : 'text-gray-700 hover:text-[#A32035]'
-                }`}
+                key={link.name}
+                to={link.path}
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-[#A32035] relative group py-2",
+                  location.pathname === link.path 
+                    ? "text-[#A32035]" 
+                    : (isScrolled || !isHomePage ? "text-gray-700" : "text-white/90")
+                )}
               >
-                {item.name}
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#A32035] transition-all duration-300 ${
-                  currentPageName === item.page ? 'w-full' : 'w-0 group-hover:w-full'
-                }`} />
+                {link.name}
+                <span className={cn(
+                  "absolute bottom-0 left-0 w-full h-0.5 bg-[#A32035] transform scale-x-0 transition-transform origin-left group-hover:scale-x-100",
+                  location.pathname === link.path && "scale-x-100"
+                )} />
               </Link>
             ))}
+            <Button 
+              className={cn(
+                "ml-4 rounded-full px-6 transition-all shadow-lg hover:shadow-xl",
+                isScrolled || !isHomePage 
+                  ? "bg-[#A32035] hover:bg-[#8a1b2d] text-white" 
+                  : "bg-white text-[#A32035] hover:bg-gray-100"
+              )}
+            >
+              Cere Ofertă
+            </Button>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-gray-700"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white border-t overflow-hidden"
-            >
-              <nav className="py-4 px-6 space-y-4">
-                {navItems.map((item) => (
+          {/* Mobile Menu */}
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden text-gray-800">
+                <Menu className={cn("h-6 w-6", !isScrolled && isHomePage && "text-white")} />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] border-l border-gray-100 p-0">
+              <div className="p-6 border-b border-gray-100">
+                <span className="text-xl font-bold text-[#A32035]">Meniu</span>
+              </div>
+              <div className="flex flex-col py-4">
+                {navLinks.map((link) => (
                   <Link
-                    key={item.page}
-                    to={createPageUrl(item.page)}
-                    className={`block py-2 text-lg ${
-                      currentPageName === item.page 
-                        ? 'text-[#A32035]' 
-                        : 'text-gray-700'
-                    }`}
+                    key={link.name}
+                    to={link.path}
+                    className={cn(
+                      "px-6 py-4 text-lg font-medium border-b border-gray-50 hover:bg-gray-50 hover:text-[#A32035] transition-colors flex items-center justify-between",
+                      location.pathname === link.path && "text-[#A32035] bg-red-50/50"
+                    )}
                   >
-                    {item.name}
+                    {link.name}
+                    <ChevronRight className="h-4 w-4 opacity-50" />
                   </Link>
                 ))}
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-grow">
-        {children}
+      {/* --- CONTENT PRINCIPAL --- */}
+      <main className="flex-grow pt-0">
+        {/* Aici vine conținutul paginilor (Home, Contact etc.) */}
+        <Outlet /> 
       </main>
 
-      {/* Chatbot */}
-      <Chatbot />
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="grid md:grid-cols-4 gap-12">
-            {/* Company Info */}
-            <div className="md:col-span-2">
-              <div className="mb-6">
-                <Logo light={true} />
+      {/* --- FOOTER --- */}
+      <footer className="bg-gray-900 text-white pt-20 pb-10 border-t border-gray-800">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid md:grid-cols-4 gap-12 mb-16">
+            <div className="space-y-6">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded bg-[#A32035] flex items-center justify-center font-bold">PM</div>
+                <span className="text-xl font-bold">PORTE MILLIEM</span>
               </div>
-              <p className="text-gray-400 leading-relaxed mb-6 max-w-md">
-                Din 1980, Porte Milliem este sinonim cu excelență în producția de uși interioare. 
-                Calitate, inovație și design italian autentic.
+              <p className="text-gray-400 leading-relaxed">
+                Transformăm spațiile prin uși de interior și exterior ce îmbină perfecțiunea estetică cu inovația tehnică.
               </p>
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#A32035] transition-colors">
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#A32035] transition-colors">
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#A32035] transition-colors">
-                  <Linkedin className="w-5 h-5" />
-                </a>
+                {[Facebook, Instagram, Linkedin].map((Icon, i) => (
+                  <a key={i} href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#A32035] transition-colors group">
+                    <Icon className="h-5 w-5 text-gray-400 group-hover:text-white transition-colors" />
+                  </a>
+                ))}
               </div>
             </div>
 
-            {/* Quick Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-6">Link-uri Rapide</h4>
-              <ul className="space-y-3">
-                {navItems.map((item) => (
-                  <li key={item.page}>
-                    <Link
-                      to={createPageUrl(item.page)}
-                      className="text-gray-400 hover:text-white transition-colors"
-                    >
-                      {item.name}
+              <h3 className="text-lg font-semibold mb-6">Navigare Rapidă</h3>
+              <ul className="space-y-4">
+                {navLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link to={link.path} className="text-gray-400 hover:text-[#A32035] transition-colors flex items-center gap-2">
+                      <ChevronRight className="h-4 w-4 text-[#A32035]" />
+                      {link.name}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Contact Info */}
             <div>
-              <h4 className="text-lg font-semibold mb-6">Contact</h4>
-              <ul className="space-y-4">
+              <h3 className="text-lg font-semibold mb-6">Contact</h3>
+              <ul className="space-y-4 text-gray-400">
                 <li className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#A32035] shrink-0 mt-0.5" />
-                  <span className="text-gray-400">Strada Industriei Nr. 15, București, România</span>
+                  <MapPin className="h-5 w-5 text-[#A32035] shrink-0 mt-1" />
+                  <span>Strada Exemplului Nr. 12,<br />București, Sector 1</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-[#A32035] shrink-0" />
-                  <span className="text-gray-400">+40 21 123 4567</span>
+                  <Phone className="h-5 w-5 text-[#A32035] shrink-0" />
+                  <span>+40 722 123 456</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-[#A32035] shrink-0" />
-                  <span className="text-gray-400">info@condoleoporte.ro</span>
+                  <Mail className="h-5 w-5 text-[#A32035] shrink-0" />
+                  <span>contact@porte-milliem.ro</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-6">Program Showroom</h3>
+              <ul className="space-y-3 text-gray-400">
+                <li className="flex justify-between border-b border-gray-800 pb-2">
+                  <span>Luni - Vineri</span>
+                  <span className="text-white">09:00 - 18:00</span>
+                </li>
+                <li className="flex justify-between border-b border-gray-800 pb-2">
+                  <span>Sâmbătă</span>
+                  <span className="text-white">10:00 - 14:00</span>
+                </li>
+                <li className="flex justify-between pb-2">
+                  <span>Duminică</span>
+                  <span className="text-[#A32035]">Închis</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-500 text-sm">
-              © {new Date().getFullYear()} Porte Milliem România. Toate drepturile rezervate.
-            </p>
-            <div className="flex gap-6 text-sm text-gray-500">
-              <a href="#" className="hover:text-white transition-colors">Politica de Confidențialitate</a>
+          <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-sm">
+            <p>&copy; {new Date().getFullYear()} Porte Milliem. Toate drepturile rezervate.</p>
+            <div className="flex gap-8">
               <a href="#" className="hover:text-white transition-colors">Termeni și Condiții</a>
+              <a href="#" className="hover:text-white transition-colors">Politica de Confidențialitate</a>
             </div>
           </div>
         </div>
       </footer>
     </div>
   );
-}
+};
+
+export default Layout;
