@@ -40,18 +40,16 @@ const Layout = () => {
       >
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="relative w-10 h-10 overflow-hidden rounded-lg bg-[#A32035] flex items-center justify-center text-white">
-               {/* Dacă ai componenta Logo, o poți folosi aici, altfel punem un text simplu */}
-               <span className="font-bold text-lg">PM</span>
-            </div>
+          {/* În loc de div-ul cu PM, pune asta: */}
+          <Link to="/" className="flex items-center gap-2">
+           <img src="/Logo.png" alt="Porte Milliem Logo" className="h-10 w-auto" />
             <span className={cn(
-              "text-xl font-bold tracking-tight transition-colors",
-              isScrolled || !isHomePage ? "text-gray-900" : "text-white"
-            )}>
-              PORTE MILLIEM
-            </span>
-          </Link>
+             "text-xl font-bold tracking-tight",
+           isScrolled || !isHomePage ? "text-gray-900" : "text-white"
+           )}>
+    PORTE MILLIEM
+  </span>
+     </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
