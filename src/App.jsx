@@ -9,6 +9,7 @@ import DespreNoi from './pages/DespreNoi';
 import { Toaster } from './components/ui/sonner';
 import Chatbot from './components/Chatbot'; // 1. Adaugă importul acesta
 
+
 function App() {
   return (
     <Router>
@@ -22,7 +23,7 @@ function App() {
         </Route>
       </Routes>
       <Chatbot /> {/* 2. Adaugă componenta aici, sub Routes */}
-      <Toaster />
+      <Toaster position="top-center" richColors />
     </Router>
   );
 }

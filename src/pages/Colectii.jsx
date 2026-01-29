@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import SectionTitle from '@/components/ui/SectionTitle';
 
 const collections = [
@@ -228,12 +229,12 @@ export default function Colectii() {
           <p className="text-white/80 text-lg mb-8">
             Contactează-ne pentru o consultație personalizată. Echipa noastră te va ajuta să găsești ușa perfectă pentru proiectul tău.
           </p>
-          <a
-            href="/Contact"
-            className="inline-flex items-center gap-2 bg-white text-[#A32035] px-10 py-4 hover:bg-gray-100 transition-colors text-sm uppercase tracking-wider font-medium"
+         <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 bg-white text-[#A32035] px-10 py-4 hover:bg-gray-100 transition-colors text-sm uppercase tracking-wider font-medium rounded shadow-lg"
           >
             Contactează-ne <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
       </section>
     </div>

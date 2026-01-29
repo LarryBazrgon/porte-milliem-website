@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -22,28 +23,21 @@ export default function Contact() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast.success('Mesajul a fost trimis cu succes!');
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        location: '',
-        phone: '',
-        message: ''
-      });
-    }, 3000);
-  };
+  e.preventDefault();
+  
+  // Înlocuiește cu datele din contul tău EmailJS
+  const serviceID = 'SERVICE_ID_TAU';
+  const templateID = 'TEMPLATE_ID_TAU';
+  const publicKey = 'PUBLIC_KEY_TAU';
+
+  try {
+    await emailjs.sendForm(serviceID, templateID, e.target, publicKey);
+    alert('Mesaj trimis cu succes! Te vom contacta în curând.');
+    e.target.reset();
+  } catch (error) {
+    alert('Ups! A apărut o eroare. Te rugăm să ne suni direct.');
+  }
+};
 
   return (
     <div>

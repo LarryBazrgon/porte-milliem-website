@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, Eye, FileText, Book } from 'lucide-react';
 import SectionTitle from '@/components/ui/SectionTitle';
+import emailjs from '@emailjs/browser';
+import { toast } from "sonner"; 
 
 const catalogs = [
   {
@@ -55,6 +57,34 @@ const catalogs = [
 ];
 
 export default function Cataloage() {
+
+  // FUNCTIA DE TRIMITERE EMAIL
+  const handleCatalogRequest = async (e) => {
+    e.preventDefault();
+
+    // --- ATENTIE: Inlocuieste cu ID-urile tale din EmailJS ---
+    const serviceID = 'YOUR_SERVICE_ID';
+    const templateID = 'YOUR_TEMPLATE_ID';
+    const publicKey = 'YOUR_PUBLIC_KEY';
+
+    const promise = emailjs.sendForm(
+      serviceID,
+      templateID,
+      e.target,
+      publicKey
+    );
+
+    // Mesajul care apare sus si dispare singur
+    toast.promise(promise, {
+      loading: 'Se trimite solicitarea...',
+      success: () => {
+        e.target.reset(); // Golește formularul după succes
+        return 'Solicitarea pentru catalog a fost trimisă cu succes!';
+      },
+      error: 'Ups! A apărut o eroare. Încearcă din nou.',
+    });
+  };
+
   return (
     <div>
       {/* Hero Section */}
@@ -95,7 +125,7 @@ export default function Cataloage() {
           >
             <Book className="w-16 h-16 mx-auto text-[#A32035] mb-6" />
             <p className="text-gray-600 text-lg leading-relaxed">
-              Răsfoiește cataloagele noastre pentru a descoperi întreaga gamă de uși interioare Condoleo Porte. 
+              Răsfoiește cataloagele noastre pentru a descoperi întreaga gamă de uși interioare Porte Milliem. 
               Fiecare catalog prezintă caracteristicile tehnice, opțiunile de personalizare și imaginile detaliate 
               ale produselor noastre.
             </p>
@@ -184,20 +214,26 @@ export default function Cataloage() {
                 Trimitem gratuit cataloagele tipărite direct la adresa ta.
               </p>
               
-              <form className="max-w-md mx-auto space-y-4">
+              <form onSubmit={handleCatalogRequest} className="max-w-md mx-auto space-y-4">
                 <input
+                  name="from_name"
                   type="text"
                   placeholder="Nume și prenume"
+                  required
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400 focus:outline-none focus:border-[#A32035]"
                 />
                 <input
+                  name="user_email"
                   type="email"
                   placeholder="Adresă email"
+                  required
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400 focus:outline-none focus:border-[#A32035]"
                 />
                 <input
+                  name="address"
                   type="text"
                   placeholder="Adresă de livrare"
+                  required
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400 focus:outline-none focus:border-[#A32035]"
                 />
                 <button
