@@ -25,7 +25,7 @@ const milestones = [
   { year: '1980', title: 'Înființare', description: 'Fondarea companiei în Italia' },
   { year: '1995', title: 'Expansiune', description: 'Prima fabrică modernă de producție' },
   { year: '2010', title: 'Inovație', description: 'Introducerea tehnologiilor avansate' },
-  { year: '2024', title: 'Prezent', description: 'Lider pe piața ușilor interioare' }
+  { year: '2026', title: 'Prezent', description: 'Lider pe piața ușilor interioare' }
 ];
 
 export default function DespreNoi() {

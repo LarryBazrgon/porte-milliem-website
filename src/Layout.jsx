@@ -136,19 +136,49 @@ const Layout = () => {
           <div className="grid md:grid-cols-4 gap-12 mb-16">
             <div className="space-y-6">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded bg-[#A32035] flex items-center justify-center font-bold">PM</div>
-                <span className="text-xl font-bold">PORTE MILLIEM</span>
-              </div>
+            {/* Logo-ul identic cu cel de sus */}
+         <img src="/Logo2.png" alt="Porte Milliem Logo" className="h-8 w-auto" />
+         <span 
+            className="text-xl tracking-wider uppercase text-white"
+           style={{ fontFamily: "'Playfair Display', serif", fontWeight: '700' }}
+      >
+         PORTE MILLIEM
+       </span>
+       </div>
               <p className="text-gray-400 leading-relaxed">
                 Transformăm spațiile prin uși de interior și exterior ce îmbină perfecțiunea estetică cu inovația tehnică.
               </p>
-              <div className="flex gap-4">
-                {[Facebook, Instagram, Linkedin].map((Icon, i) => (
-                  <a key={i} href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#A32035] transition-colors group">
-                    <Icon className="h-5 w-5 text-gray-400 group-hover:text-white transition-colors" />
-                  </a>
-                ))}
-              </div>
+             <div className="flex gap-4">
+  {/* Facebook */}
+  <a 
+    href="https://facebook.com/numele-tau" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#A32035] transition-colors group"
+  >
+    <Facebook className="h-5 w-5 text-gray-400 group-hover:text-white" />
+  </a>
+
+  {/* Instagram */}
+  <a 
+    href="https://instagram.com/numele-tau" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#A32035] transition-colors group"
+  >
+    <Instagram className="h-5 w-5 text-gray-400 group-hover:text-white" />
+  </a>
+
+  {/* Linkedin */}
+  <a 
+    href="https://linkedin.com/company/numele-tau" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#A32035] transition-colors group"
+  >
+    <Linkedin className="h-5 w-5 text-gray-400 group-hover:text-white" />
+  </a>
+</div>
             </div>
 
             <div>

@@ -109,14 +109,17 @@ export default function HeroSlider() {
                 >
                   Descoperă mai mult
                 </Link>
-
-                {/* Butonul de Contact (care merge mereu la pagina de contact) */}
+              {/*
+              
+                {/* Butonul de Contact (care merge mereu la pagina de contact) }
                 <Link
                   to="/contact"
                   className="px-8 py-3 bg-[#A32035] border-2 border-[#A32035] text-white hover:bg-[#8a1b2d] hover:border-[#8a1b2d] transition-all duration-300 tracking-wider text-sm uppercase"
                 >
                   Contactează-ne
                 </Link>
+            */}
+            
               </motion.div>
             </div>
           </div>
