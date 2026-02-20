@@ -202,10 +202,21 @@ const Layout = () => {
                   <MapPin className="h-5 w-5 text-[#A32035] shrink-0 mt-1" />
                   <span>Strada Exemplului Nr. 12,<br />București, Sector 1</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 text-[#A32035] shrink-0" />
-                  <span>+40 722 123 456</span>
-                </li>
+               <li className="flex flex-col gap-2">
+  <div className="flex items-center gap-3">
+    <Phone className="h-5 w-5 text-[#A32035] shrink-0" />
+    <a href="tel:+40728230186" className="hover:text-white transition-colors">
+      +40 728 230 186
+    </a>
+  </div>
+  <div className="flex items-center gap-3">
+    {/* Folosim un div gol de lățimea iconiței pentru a alinia frumos al doilea număr */}
+    <div className="w-5 h-5 shrink-0"></div>
+    <a href="tel:+40747586042" className="hover:text-white transition-colors">
+      +40 747 586 042
+    </a>
+  </div>
+</li>
                 <li className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-[#A32035] shrink-0" />
                   <span>contact@porte-milliem.ro</span>

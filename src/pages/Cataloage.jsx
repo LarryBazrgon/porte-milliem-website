@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import { Download, Eye, FileText, Book } from 'lucide-react';
 import SectionTitle from '@/components/ui/SectionTitle';
 import emailjs from '@emailjs/browser';
-import { toast } from "sonner"; 
+import { toast } from "sonner";
 
+// AICI ESTE LISTA CU PDF-URILE TALE
+// Asigură-te că numele fișierelor de la 'pdfPath' sunt exact ca cele pe care le-ai pus în folderul public/cataloage
 const catalogs = [
   {
     id: 1,
@@ -12,7 +14,8 @@ const catalogs = [
     description: 'Toate colecțiile noastre într-un singur catalog complet.',
     pages: 156,
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
-    type: 'general'
+    type: 'general',
+    pdfPath: '/cataloage/general.pdf' // <--- Modifică numele dacă e diferit
   },
   {
     id: 2,
@@ -20,7 +23,8 @@ const catalogs = [
     description: 'Eleganță și rafinament în finisaje lucioase și mate.',
     pages: 48,
     image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&q=80',
-    type: 'collection'
+    type: 'collection',
+    pdfPath: '/cataloage/lacuit.pdf'
   },
   {
     id: 3,
@@ -28,7 +32,8 @@ const catalogs = [
     description: 'Versatilitate și durabilitate pentru orice ambient.',
     pages: 42,
     image: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&q=80',
-    type: 'collection'
+    type: 'collection',
+    pdfPath: '/cataloage/laminat.pdf'
   },
   {
     id: 4,
@@ -36,7 +41,8 @@ const catalogs = [
     description: 'Transparență și lumină cu inserții de sticlă.',
     pages: 36,
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80',
-    type: 'collection'
+    type: 'collection',
+    pdfPath: '/cataloage/cristal.pdf'
   },
   {
     id: 5,
@@ -44,7 +50,8 @@ const catalogs = [
     description: 'Autenticitatea și căldura lemnului natural.',
     pages: 44,
     image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80',
-    type: 'collection'
+    type: 'collection',
+    pdfPath: '/cataloage/lemn.pdf'
   },
   {
     id: 6,
@@ -52,33 +59,26 @@ const catalogs = [
     description: 'Certificări și specificații tehnice pentru siguranță.',
     pages: 28,
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80',
-    type: 'technical'
+    type: 'technical',
+    pdfPath: '/cataloage/antifoc.pdf'
   }
 ];
 
 export default function Cataloage() {
 
-  // FUNCTIA DE TRIMITERE EMAIL
   const handleCatalogRequest = async (e) => {
     e.preventDefault();
-
-    // --- ATENTIE: Inlocuieste cu ID-urile tale din EmailJS ---
+    // Configurează aici datele tale EmailJS
     const serviceID = 'YOUR_SERVICE_ID';
     const templateID = 'YOUR_TEMPLATE_ID';
     const publicKey = 'YOUR_PUBLIC_KEY';
 
-    const promise = emailjs.sendForm(
-      serviceID,
-      templateID,
-      e.target,
-      publicKey
-    );
+    const promise = emailjs.sendForm(serviceID, templateID, e.target, publicKey);
 
-    // Mesajul care apare sus si dispare singur
     toast.promise(promise, {
       loading: 'Se trimite solicitarea...',
       success: () => {
-        e.target.reset(); // Golește formularul după succes
+        e.target.reset();
         return 'Solicitarea pentru catalog a fost trimisă cu succes!';
       },
       error: 'Ups! A apărut o eroare. Încearcă din nou.',
@@ -180,15 +180,30 @@ export default function Cataloage() {
                     <span>{catalog.pages} pagini</span>
                   </div>
 
+                  {/* AICI SUNT BUTOANELE MODIFICATE SA FIE LINK-URI */}
                   <div className="flex gap-3">
-                    <button className="flex-1 flex items-center justify-center gap-2 bg-[#A32035] text-white py-3 px-4 hover:bg-[#8a1b2d] transition-colors text-sm font-medium rounded">
+                    
+                    {/* Buton DESCARCĂ (download) */}
+                    <a 
+                      href={catalog.pdfPath} 
+                      download 
+                      className="flex-1 flex items-center justify-center gap-2 bg-[#A32035] text-white py-3 px-4 hover:bg-[#8a1b2d] transition-colors text-sm font-medium rounded cursor-pointer no-underline"
+                    >
                       <Download className="w-4 h-4" />
                       Descarcă
-                    </button>
-                    <button className="flex items-center justify-center gap-2 border border-gray-300 text-gray-700 py-3 px-4 hover:bg-gray-50 transition-colors text-sm font-medium rounded">
+                    </a>
+
+                    {/* Buton VIZUALIZEAZĂ (open in new tab) */}
+                    <a 
+                      href={catalog.pdfPath} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 border border-gray-300 text-gray-700 py-3 px-4 hover:bg-gray-50 transition-colors text-sm font-medium rounded cursor-pointer no-underline"
+                    >
                       <Eye className="w-4 h-4" />
                       Vizualizează
-                    </button>
+                    </a>
+
                   </div>
                 </div>
               </motion.div>
@@ -215,31 +230,10 @@ export default function Cataloage() {
               </p>
               
               <form onSubmit={handleCatalogRequest} className="max-w-md mx-auto space-y-4">
-                <input
-                  name="from_name"
-                  type="text"
-                  placeholder="Nume și prenume"
-                  required
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400 focus:outline-none focus:border-[#A32035]"
-                />
-                <input
-                  name="user_email"
-                  type="email"
-                  placeholder="Adresă email"
-                  required
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400 focus:outline-none focus:border-[#A32035]"
-                />
-                <input
-                  name="address"
-                  type="text"
-                  placeholder="Adresă de livrare"
-                  required
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400 focus:outline-none focus:border-[#A32035]"
-                />
-                <button
-                  type="submit"
-                  className="w-full bg-[#A32035] text-white py-3 px-6 hover:bg-[#8a1b2d] transition-colors text-sm uppercase tracking-wider font-medium rounded"
-                >
+                <input name="from_name" type="text" placeholder="Nume și prenume" required className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400 focus:outline-none focus:border-[#A32035]" />
+                <input name="user_email" type="email" placeholder="Adresă email" required className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400 focus:outline-none focus:border-[#A32035]" />
+                <input name="address" type="text" placeholder="Adresă de livrare" required className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400 focus:outline-none focus:border-[#A32035]" />
+                <button type="submit" className="w-full bg-[#A32035] text-white py-3 px-6 hover:bg-[#8a1b2d] transition-colors text-sm uppercase tracking-wider font-medium rounded">
                   Solicită catalog gratuit
                 </button>
               </form>

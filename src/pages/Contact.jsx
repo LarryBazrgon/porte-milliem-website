@@ -217,17 +217,20 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-[#A32035]/10 rounded-full flex items-center justify-center shrink-0">
-                      <Phone className="w-5 h-5 text-[#A32035]" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-800">Telefon</p>
-                      <p className="text-gray-600 mt-1">+40 21 123 4567</p>
-                      <p className="text-gray-600">+40 722 123 456</p>
-                    </div>
-                  </div>
-
+                 <div className="flex items-start gap-4">
+  <div className="w-12 h-12 bg-[#A32035]/10 rounded-full flex items-center justify-center shrink-0">
+    <Phone className="w-6 h-6 text-[#A32035]" />
+  </div>
+  <div>
+    <h3 className="text-xl font-semibold text-gray-800 mb-2">Telefoane</h3>
+    <a href="tel:+40728230186" className="block text-gray-600 hover:text-[#A32035] transition-colors mb-1">
+      +40 728 230 186
+    </a>
+    <a href="tel:+40747586042" className="block text-gray-600 hover:text-[#A32035] transition-colors">
+      +40 747 586 042
+    </a>
+  </div>
+</div>
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-[#A32035]/10 rounded-full flex items-center justify-center shrink-0">
                       <Mail className="w-5 h-5 text-[#A32035]" />
